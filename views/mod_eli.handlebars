@@ -1,0 +1,95 @@
+<div class="padre">
+    <div class="hijo">
+        <h3>Modificar o e eliminar productos</h3>
+        <div class="input-group">
+            <input type="text" id="filtro-buscar" class="form-control" placeholder="Parámetro de búsqueda" onkeyup="filtro_productos()">
+            <span class="input-group-addon" id="basic-addon2" onclick="filtro_productos()">Buscar</span>
+            <span class="input-group-addon" id="basic-addon2" onclick="Exportar_xc()">Excel</span>
+        </div>
+    </div>
+</div>
+<label for="" id="lb_resultados" style="padding-left:20px"></label>
+<div style="padding:12px">
+    <div class="table-responsive">
+        <table class="table" id="tabla_productos">
+            <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Existencia</th>
+                <th>Acciones</th>
+            </tr>
+            {{#if productos}} {{#each productos}}
+            <tr class="registro_producto">
+                <td class="detalle_producto cod_prod_v1">
+                    {{this.Codigo}}
+                </td>
+                <td class="capital detalle_producto">
+                    {{this.Nombre}}
+                </td>
+                <td class="detalle_producto">
+                    {{this.Precio}}
+                </td>
+                <td class="centrado detalle_producto">
+                    {{this.Existencia}}
+                </td>
+                <td>
+                    <button type="button" class="btn btn-primary" onclick="modificar('{{this.Codigo}}')" aria-label="Left Align">
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="btn btn-danger" onclick="eliminar('{{this.Codigo}}')" aria-label="Left Align">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </button>
+                </td>
+            </tr>
+            {{/each}} {{/if}}
+        </table>
+    </div>
+</div>
+<div id="modal_modificar" class="modal fade" role="dialog">
+     <form action="" class="justificado" method="post" id="form_modificar" onsubmit="modificar_producto(event)"></form>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modificar</h4>
+      </div>
+      <div class="modal-body">
+       
+            <div class="form-group">
+                <label for="">Código de barra</label>
+                <input readonly class="form-control" placeholder="Código de barra" type="text" id="TXT_codigo_productos">
+            </div>
+            <div class="form-group">
+                <label for="">Nombre del producto</label>
+                <input required class="form-control" placeholder="Nombre" type="text" id="TXT_nombre_productos">
+            </div>
+            <div class="form-group">
+                <label for="">Precio del producto $</label>
+                <input min="0"  required class="form-control" onKeyPress="return soloNumeros(event)" placeholder="Precio $$" type="number" step="0.01" id="TXT_precio_productos">
+            </div>
+            <div class="form-group">
+                <label for="">Existencia del producto</label>
+                <input min="0"  required class="form-control" onKeyPress="return soloNumeros(event)" placeholder="Existencia" step="1" type="number" id="TXT_existencia_productos">
+            </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" data-dismiss="modal">Cerrar</button>
+        <button type="submit" form="form_modificar" class="btn btn-success">Guardar</button>
+      </div>
+    </div>
+  </div>
+  </form>
+</div>
+<script>
+    window.addEventListener('load',()=>{
+        activar('it2')
+        filtro_productos()
+    })
+    function Exportar_xc(){
+        var tabla= document.getElementById('tabla_productos')
+        descargarExcel(tabla)
+    }
+</script>
+

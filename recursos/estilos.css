@@ -1,0 +1,52 @@
+.centrado{
+    text-align: center;
+}
+.justificado{
+    text-align: justify;
+}
+.padre {
+    padding-top: 12px;
+    width:100%;
+    text-align:center;
+}
+.hijo {
+    margin:0px auto;
+}
+.capital{
+    text-transform: capitalize;
+}
+@media screen and (min-width: 1200px){
+    .hijo{
+        width:20%;
+    }
+}
+@media screen and (max-width: 1200px) and (min-width: 900px) {
+    .hijo{
+        width:40%;
+    }
+}
+@media screen and (max-width: 900px) and (min-width: 600px) {
+    .hijo{
+        width:60%;
+    }
+}
+@media screen and (max-width: 600px){
+    .hijo{
+        width:80%;
+    }
+}
+.escogerProducto:hover{
+    background-color: lightsteelblue;
+    cursor: pointer;
+}
+.escogerProducto{
+    background-color: #ffffff
+}
+.input-group-addon:hover{
+    cursor: pointer;
+    background-color: lightsteelblue;
+}
+
+.codigo_venta{
+    display: none
+}

@@ -1,0 +1,44 @@
+<div class="padre">
+    <div class="hijo">
+        <h3>Pocos productos</h3>
+        <div class="input-group">
+            <input onKeyPress="return soloNumeros(event)" type="number" value="0" id="filtro-buscar" class="form-control" placeholder="Existencia máxima" onchange="filtro_existencia()" onkeyup="filtro_existencia()">
+            <span class="input-group-addon" id="basic-addon2">Buscar</span>
+        </div>
+    </div>
+</div>
+<label for="" id="lb_resultados" style="padding-left:20px"></label>
+<div style="padding:12px">
+    <div class="table-responsive">
+        <table class="table">
+            <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Existencia</th>
+            </tr>
+            {{#if productos}} {{#each productos}}
+            <tr class="registro_producto">
+                <td class="">
+                    {{this.Codigo}}
+                </td>
+                <td class="capital ">
+                    {{this.Nombre}}
+                </td>
+                <td class="">
+                    {{this.Precio}}
+                </td>
+                <td class="centrado detalle_producto">
+                    {{this.Existencia}}
+                </td>
+            </tr>
+            {{/each}} {{/if}}
+        </table>
+    </div>
+</div>
+<script>
+    window.addEventListener('load', ()=>{
+        activar('it3')
+        filtro_existencia()
+    })
+</script>

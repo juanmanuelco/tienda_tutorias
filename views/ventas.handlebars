@@ -1,0 +1,73 @@
+<div class="padre">
+    <div class="hijo">
+        <form action="/web/ventas" method="post">
+            <h3>Ventas realizadas</h3>
+            <br>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <label for="">Fecha inicial</label>
+                    <input  value ="{{fecha}}{{fecha_i}}" required class="form-control" type="date" name="fecha_inicial" id="">
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <label for="">Fecha final</label>
+                    <input required value="{{fecha}}{{fecha_f}}" class="form-control" type="date" name="fecha_final" id="">
+                </div>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-success">Buscar</button>
+        </form>
+    </div>
+    <label for="" id="lb_resultados" ></label><br>
+    <label for="" id="lb_totales"></label>
+</div>
+
+<div style="display:block">
+    <h6 id="txt_ini">{{inicial}}</h6>
+    <h6 id="txt_fin">{{final}}</h6>
+</div>
+
+<div style="padding:12px">
+    {{#if ventas}}{{#each ventas}}
+    <div style="margin-bottom:12px" class="reg_venta">
+        <div style="padding:12px; background-color:rgba(018, 204, 0180, 0.45)">
+            <div class="row">
+                <div class="col-lg-4 col-md-4">Código de venta: {{this.Codigo}}</div>
+                <div class="col-lg-4 col-md-4">Fecha: <b class="fechas">{{this.fecha}}</b></div>
+                <div class="col-lg-4 col-md-4">Total: <b class="totales">{{this.total}}</b></div>
+            </div>
+        </div>
+        <div style="padding:12px">
+            <div class="table-responsive">
+                <table class="table">
+                    <tr>
+                        
+                        <th style="width:20%">Código</th>
+                        <th style="width:50%">Nombre</th>
+                        <th style="width:10%">Precio</th>
+                        <th style="width:10%">Cantidad</th>
+                        <th style="width:10%">Subtotal</th>
+                    </tr>
+                    {{#each this.pedido}}
+                        <tr>
+                            
+                            <td>{{this.codigo}}</td>
+                            <td>{{this.nombre}}</td>
+                            <td class="precios">{{this.precio}}</td>
+                            <td class="cantidades">{{this.cantidad}}</td>
+                            <td class="subtotales"></td>
+                        </tr>
+                    {{/each}}
+                </table>
+            </div>
+        </div>
+    </div>
+    {{/each}}{{/if}}
+</div>
+<script>
+    window.addEventListener('load', ()=>{
+        activar('it4')
+        obtenerFechas()
+        obtenerTotales()
+        obtenerSubTotales()
+    })
+</script>

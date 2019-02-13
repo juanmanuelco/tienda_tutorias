@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Gestor de negocio</title>
+
+    <!--Scripts______________________________________________________________________________--->
+    <script src="/scripts/jquery.js"></script>
+
+
+    <!--SweetAlert-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="/styles/sweet2min.css">
+
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="/bootstraps/css/bootstrap.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="/bootstraps/css/bootstrap-theme.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="/bootstraps/js/bootstrap.js"></script>
+
+    <script src="/api.js"></script>
+    <script src="/codigo.js"></script>
+    <link rel="stylesheet" href="/estilos.css">
+</head>
+
+<body>
+    <nav class="navbar  navbar-inverse ">
+        <div class="container-fluid">
+            <!-- Bravnd and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+                    aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/web">Inicio</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li id="it0" class="item">
+                        <a href="/web/vender">Ventas</a>
+                    </li>
+                    <li id="it1" class="item">
+                        <a href="/web/integrar">Integrar</a>
+                    </li>
+                    <li id="it2" class="item">
+                        <a href="/web/modificar-eliminar">Modificar o eliminar</a>
+                    </li>
+                    <li id="it3" class="item">
+                        <a href="/web/pocos">Pocos</a>
+                    </li>
+                    <li id="it4" class="item">
+                        <a href="/web/ventas">Ventas realizadas</a>
+                    </li>
+                    <li id="it4" class="item">
+                        <a href="http://www.recargafacil.com.ec" target="_blank">Recargas y pagos</a>
+                    </li>
+                    <li id="it4" class="item">
+                        <a href="https://www.netflix.com/browse" target="_blank">Películas</a>
+                    </li>
+                </ul>
+
+                <div class="nav navbar-nav navbar-right">
+                    <form autocomplete="off" class="navbar-form navbar-left" onsubmit="consultar_producto(event)">
+                        <div class="form-group">
+                            <input required type="text" id="codigo_barra" class="form-control" placeholder="Consultar por código de barra">
+                        </div>
+                        <button type="submit" class="btn btn-default">Consultar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div >
+        {{{body}}}
+    </div>
+    <div id="modal-consulta" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Consulta</h4>
+                </div>
+                <div class="modal-body centrado">
+                    <h3 id="TXT_nombre_producto"></h3>
+                    <h6 id="TXT_codigo_producto"></h6>
+                    <h1 id="TXT_precio_producto"></h1>
+                    <h5 id="TXT_existencia_producto"></h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

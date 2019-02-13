@@ -1,0 +1,151 @@
+<div class="row">
+    <div class="col-lg-5 col-md-5 ">
+        <h3 class="centrado">Ventas</h3>
+        <div class="input-group" style="margin-left:20px; margin-right:20px">
+            <input type="text" id="filtro-buscar" class="form-control" onkeyup="filtro_vender()" placeholder="Parámetro de búsqueda">
+            <span class="input-group-addon" id="basic-addon2" onclick="filtro_vender()">Buscar</span>
+        </div>
+        <div style="padding:12px;">
+            <div class="table-responsive" style="max-height:400px">
+                <table class="table">
+                    <tr>
+                        <th class="codigo_venta">Código</th>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Existencia</th>
+                    </tr>
+                    {{#if productos}} {{#each productos}}
+                    <tr class="registro_producto escogerProducto" onclick="detallar_venta('{{this.Codigo}}')">
+                        <td class="detalle_producto codigo_venta">
+                            {{this.Codigo}}
+                        </td>
+                        <td class="capital detalle_producto">
+                            {{this.Nombre}}
+                        </td>
+                        <td class="detalle_producto">
+                            {{this.Precio}}
+                        </td>
+                        <td class="centrado detalle_producto">
+                            {{this.Existencia}}
+                        </td>
+                    </tr>
+                    {{/each}} {{/if}}
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-7 col-md-7 ">
+        <div id="impresion_factura">
+            <h3 class="centrado" id="Banner">Carrito de compras</h3>
+            <div id="oculto_factura" style="display:none">
+                <P id="fecha_vendida"></P>
+                <p id="pago_c">Comprobante de pago</p>
+                <p>Contacto: <b>+593 052 577081</b></p>
+                <p>De Urbirrios, Manta</p>
+            </div>
+        <div class="centrado"><h1 for="" >Total a pagar: $<b id="tot_pag_ven">0.00</b></h1></div>
+            <div class="table-responsive" style="max-height:360px; height:360px">
+                <table class="table" id="tabla_carrito">
+                   
+                </table>
+            </div>
+            
+            <div id="botones_factura">
+                <button class="btn btn-success" onclick="$('#fin_venta').modal({backdrop:'static'})">Guardar venta</button>
+                <button class="btn btn-danger" onclick="borrar_carrito()">Borrar todo el carrito</button>
+                <button class="btn btn-warning" onclick="cotizar()">Imprimir cotización</button>
+            </div>
+           
+        </div>
+         
+
+    </div>
+</div>
+<div id="escogerVenta" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Agregar</h4>
+            </div>
+            <div class="modal-body centrado">
+                <h3 id="nombre_p" class="capital"></h3>
+                <h6 id="codigo_p"></h6>
+                <h1 id="precio_p"></h1>
+                <h5 >Quedan <b id="existencia_p"></b> en existencia</h5>
+                <br>
+                <br>
+                <label for="" class="justificado">Cantidad a vender</label>
+                <input min="0" autofocus onmouseover="control_cantidad()" onkeyup="control_cantidad()" type="number" id="cantidad_pedir"
+                    style="width:40%; margin:0 auto" class="form-control" value="0" required>
+                <br>
+                <button class="btn btn-success" onclick="anadir()">Añadir</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modificar_venta" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Agregar</h4>
+            </div>
+            <div class="modal-body centrado">
+                <h3 id="nombre_pv" class="capital"></h3>
+                <h6 id="codigo_pv"></h6>
+                <h1 id="precio_pv"></h1>
+                <h5>Quedan <b  id="existencia_pv"></b> en existencia</h5>
+                <br>
+                <br>
+                <label for="" class="justificado">Cantidad a vender</label>
+                <input min="0" autofocus type="number" id="cantidad_pedirv"
+                    style="width:40%; margin:0 auto" class="form-control" value="0" required>
+                <br>
+                <button class="btn btn-success" onclick="modificar_articulo()">Añadir</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="fin_venta" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Venta</h4>
+            </div>
+            <div class="modal-body centrado">
+                <h3 class="centrado">¿Cómo desea finalizar la venta?</h3>
+                <button class="btn btn-success" onclick="fin_venta(true)">Solo guardar</button>
+                <button class="btn btn-primary" onclick="fin_venta(false)">Guardar e imprimir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.addEventListener('load', () => {
+        activar('it0')
+        filtro_vender()
+        var tabla= document.getElementById('tabla_carrito')
+        tabla.innerHTML=` <tr>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                        <th>Acciones</th>
+                    </tr>`
+        mostrarCarrito()
+    })
+</script>
